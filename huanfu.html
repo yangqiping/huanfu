@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <style>
+        li {
+            display: inline-block;
+            width: 20px;
+            height: 30px;
+            margin-left: 15px;
+            position: relative;
+            /* margin-bottom: 10px; */
+            bottom: 0px;
+        }
+        
+        .select {
+            border: 1px solid;
+            height: 40px;
+        }
+        
+        .color {
+            margin-left: -30px;
+            margin-top: 5px;
+        }
+        
+        .text {
+            margin: 0 auto;
+            width: 550px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <fieldset style="width: 600px;">
+        <legend style="color: red;">页面换肤</legend>
+        <div class="select">
+            <ul class="color">
+                <li class="co" id="c1" style="background-color: red; " title="红色"></li>
+                <li class="co" id="c2" style="background-color: pink; " title="粉色"></li>
+                <li class="co" id="c3" style="background-color: blue; " title="蓝色"></li>
+                <li class="co" id="c4" style="background-color: green; " title="绿色"></li>
+                <li class="co" id="c5" style="background-color: purple; " title="紫色"></li>
+                <li class="co" id="c6" style="background-color: gray; " title="灰色"></li>
+
+            </ul>
+        </div>
+        <div class="text">
+            <p>LocalStorage将数据保存在客户端本地的硬件设备中，即使浏览器被关闭了，该数据仍然存在，下次打开浏览器访问网站时仍然可以继续使用。</p>
+        </div>
+
+    </fieldset>
+    <script>
+        var skin1 = document.getElementById("c1");
+        var text = document.getElementsByClassName('text');
+        var li = document.getElementsByTagName('li');
+        var list = ["红色", "粉色", "蓝色", "绿色", "紫色", "灰色", ]
+        window.onload = function() {
+            text[0].style.backgroundColor = localStorage.getItem("color");
+            var i = localStorage.getItem("key");
+            li[i].style.bottom = 3 + 'px';
+        }
+        for (var j = 0; j < li.length; j++) {
+            var a;
+            li[j].onclick = function() {
+                localStorage.clear();
+                text[0].style.backgroundColor = this.style.backgroundColor;
+
+                var flag = this.getAttribute("title");
+                for (var k = 0; k < li.length; k++) {
+                    if (list[k] !== flag) {
+                        li[k].style.bottom = 0 + 'px';
+                    } else {
+                        li[k].style.bottom = 3 + 'px';
+                        a = k;
+                    }
+                }
+                localStorage.setItem("color", this.style.backgroundColor)
+                localStorage.setItem("key", a);
+            }
+        }
+    </script>
+</body>
+
+</html>
